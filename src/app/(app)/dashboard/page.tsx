@@ -95,7 +95,7 @@ const Page = () => {
   const handleSwitchChange = async () => {
     setIsSwitchLoading(true)
     try {
-      const response = await axios.post('/api/accept-message', { acceptMessages: !acceptMessages })
+      await axios.post('/api/accept-message', { acceptMessages: !acceptMessages })
       setValue('acceptMessages', !acceptMessages)
       toast({
         title: "Switch Accept Message",
@@ -178,7 +178,7 @@ const Page = () => {
           </div>
 
           <div className="space-y-4">
-            {/* @ts-ignore */}
+            {/* @ts-expect-error */}
             <MessageCard messages={messages} />
 
           </div>
