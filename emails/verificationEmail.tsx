@@ -6,7 +6,7 @@ interface verificationEmailProps {
   otp: string;
 }
 
-const verificationEmail: React.FC<Readonly<verificationEmailProps>> = ({ username, otp }) => {
+const VerificationEmail: React.FC<Readonly<verificationEmailProps>> = ({ username, otp }) => {
   return (
     <Html>
       <Head />
@@ -62,4 +62,4 @@ const verificationEmail: React.FC<Readonly<verificationEmailProps>> = ({ usernam
   );
 };
 
-export default verificationEmail;
+export default VerificationEmail;
