@@ -178,7 +178,7 @@ const Page = () => {
           </div>
 
           <div className="space-y-4">
-            {/* @ts-expect-error */}
+            {/* @ts-expect-error: Temporary workaround until typings are added */}
             <MessageCard messages={messages} />
 
           </div>

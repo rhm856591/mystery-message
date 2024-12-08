@@ -1,36 +1,36 @@
-"use client"
+"use client";
 
-import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
-import { Textarea } from "@/components/ui/textarea"
-import { useToast } from "@/hooks/use-toast"
-import axios from "axios"
-import { User } from "next-auth"
-import { useSession } from "next-auth/react"
-import { useEffect, useState } from "react"
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/hooks/use-toast";
+import axios, { AxiosError } from "axios";
+import { User } from "next-auth";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
 
-
-export default function page() {
-
-  const { toast } = useToast()
+export default function Page() {
+  const { toast } = useToast();
   const suggestedMessages = [
     "What's your favorite movie?",
     "Do you have any pets?",
-    "What's your dream job?"
-  ]
+    "What's your dream job?",
+  ];
 
-  const [username, setUsername] = useState('');
-  const [content, setContent] = useState('');
+  const [username, setUsername] = useState("");
+  const [content, setContent] = useState("");
+
   useEffect(() => {
     // Extract the username from the URL
     const url = new URL(window.location.href);
-    const username = url.pathname.split('/')[2];
+    const username = url.pathname.split("/")[2];
     setUsername(username);
   }, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await axios.post('/api/send-message', { username, content });
+      const res = await axios.post("/api/send-message", { username, content });
 
       if (res.status === 201) {
         toast({
@@ -38,32 +38,32 @@ export default function page() {
           description: "Your message has been sent successfully",
         });
       }
-    } catch (error: any) {
-      // Handle errors based on status codes
-      if (error.response?.status === 403) {
-        toast({
-          title: "Error",
-          description: "This user is not accepting messages.",
-        });
-      } else if (error.response?.status === 404) {
-        toast({
-          title: "Error",
-          description: "User not found.",
-        });
-      } else {
-        toast({
-          title: "Error",
-          description: "An error occurred while sending your message.",
-        });
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        if (error.response?.status === 403) {
+          toast({
+            title: "Error",
+            description: "This user is not accepting messages.",
+          });
+        } else if (error.response?.status === 404) {
+          toast({
+            title: "Error",
+            description: "User not found.",
+          });
+        } else {
+          toast({
+            title: "Error",
+            description: "An error occurred while sending your message.",
+          });
+        }
       }
     } finally {
-      setContent('');
+      setContent("");
     }
   };
 
-
-  const { data: session } = useSession()
-  const user = session?.user as User | undefined
+  const { data: session } = useSession();
+  const user = session?.user as User | undefined; // You can remove this if unused
 
   return (
     <div className="max-w-2xl mx-auto p-6 space-y-8">
@@ -71,7 +71,10 @@ export default function page() {
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="space-y-2">
-          <label htmlFor="message" className="text-sm text-gray-600 dark:text-gray-400">
+          <label
+            htmlFor="message"
+            className="text-sm text-gray-600 dark:text-gray-400"
+          >
             Send Anonymous Message to @{username}:
           </label>
           <Textarea
@@ -83,7 +86,7 @@ export default function page() {
           />
         </div>
         <div className="flex justify-end">
-          <Button onSubmit={handleSubmit} type="submit">Send it</Button>
+          <Button type="submit">Send it</Button>
         </div>
       </form>
 
@@ -107,6 +110,5 @@ export default function page() {
         </Card>
       </div>
     </div>
-  )
+  );
 }
-
