@@ -2,7 +2,7 @@ import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/model/user";
 import { Message } from "@/model/user";
 
-export async function POST(req: Request, res: Response) {
+export async function POST(req: Request) {
   await dbConnect();
   const { username, content } = await req.json();
 

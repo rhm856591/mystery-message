@@ -16,15 +16,14 @@ export default function Home() {
   const [api, setApi] = useState<CarouselApi>()
   const [current, setCurrent] = useState(0)
   const [count, setCount] = useState(0)
-  const [message, setMessage] = useState('')
 
   // Array of quotations
   const quotes = [
     "The journey of a thousand miles begins with one step. - Lao Tzu",
-    "Life is what happens when you're busy making other plans. - John Lennon",
+    "Life is what happens when you&apos;re busy making other plans. - John Lennon",
     "Success is not final, failure is not fatal: It is the courage to continue that counts. - Winston Churchill",
     "In the middle of every difficulty lies opportunity. - Albert Einstein",
-    "You miss 100% of the shots you don't take. - Wayne Gretzky",
+    "You miss 100% of the shots you don&apos;t take. - Wayne Gretzky",
   ]
 
   useEffect(() => {
@@ -65,6 +64,7 @@ export default function Home() {
         {/* About Mystry Message Section */}
         <section className="mb-10">
           <h2 className="text-2xl font-bold text-center mb-6">About Mystry Message</h2>
+          {/* react/no-unescaped-entities */}
           <p className="text-lg text-gray-700 text-center">
             At Mystry Message, we allow you to send messages without revealing your identity. Whether you have a message to share, feedback to give, or simply want to express your thoughts anonymously, we've got you covered. No one will know who you are, but your voice will be heard.
           </p>

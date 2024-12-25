@@ -4,7 +4,7 @@ import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/model/user";
 import { User } from "next-auth";
 
-export async function GET(req: Request, res: Response) {
+export async function GET() {
     await dbConnect();
     // console.log("inside get messages")
     const session = await getServerSession(authOptions);

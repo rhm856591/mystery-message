@@ -26,7 +26,7 @@ interface MessageProps {
     createdAt: Date;
     _id: string;
 }
-//@ts-ignore
+//@ts-expect-error - messages prop type needs refinement
 const MessageCard: React.FC<MessageProps[]> = ({ messages }) => {
     const { toast } = useToast()
     // console.log(messages[0]?._id)
@@ -60,7 +60,7 @@ const MessageCard: React.FC<MessageProps[]> = ({ messages }) => {
             });
             window.location.reload();
         } catch (error) {
-            // console.log(error);
+            console.log(error);
             toast({
                 title: "Error",
                 description: "Failed to delete the message. Please try again.",

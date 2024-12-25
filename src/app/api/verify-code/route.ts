@@ -2,7 +2,7 @@ import UserModel from "@/model/user";
 import dbConnect from "@/lib/dbConnect";
 
 
-export async function POST(req: Request, res: Response) {
+export async function POST(req: Request) {
     await dbConnect();
 
     try {
@@ -23,7 +23,7 @@ export async function POST(req: Request, res: Response) {
         const isCodeNotExpired = new Date(user.verifyCodeExpiry) > new Date()
 
         if(isUserValid && isCodeNotExpired){
-            user.isVerified = true,
+            user.isVerified = true;
             await user.save()
 
             return Response.json({
@@ -44,6 +44,8 @@ export async function POST(req: Request, res: Response) {
         
     } catch (error) {
         console.error("Error verifying username");
+        console.log(error);
+        
         return Response.json({
             success: false,
             message: "Error verifying username",
