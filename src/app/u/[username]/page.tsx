@@ -5,8 +5,6 @@ import { Card } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import axios, { AxiosError } from "axios";
-import { User } from "next-auth";
-import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
 export default function Page() {
@@ -62,8 +60,8 @@ export default function Page() {
     }
   };
 
-  const { data: session } = useSession();
-  session?.user as User | undefined; // You can remove this if unused
+  // const { data: session } = useSession();
+  // const user = session?.user as User | undefined; // You can remove this if unused
 
   return (
     <div className="max-w-2xl mx-auto p-6 space-y-8">

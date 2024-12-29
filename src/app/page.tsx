@@ -66,7 +66,7 @@ export default function Home() {
           <h2 className="text-2xl font-bold text-center mb-6">About Mystry Message</h2>
           {/* react/no-unescaped-entities */}
           <p className="text-lg text-gray-700 text-center">
-            At Mystry Message, we allow you to send messages without revealing your identity. Whether you have a message to share, feedback to give, or simply want to express your thoughts anonymously, we've got you covered. No one will know who you are, but your voice will be heard.
+            At Mystry Message, we allow you to send messages without revealing your identity. Whether you have a message to share, feedback to give, or simply want to express your thoughts anonymously, we&apos;ve got you covered. No one will know who you are, but your voice will be heard.
           </p>
         </section>
 

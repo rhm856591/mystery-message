@@ -13,18 +13,14 @@ export const authOptions: NextAuthOptions = {
                 email: { type: "text", label: "email", placeholder: "Enter your email" },
                 password: { type: "password", label: "Password" },
             },
-            // @typescript-eslint/no-explicit-any
-            async authorize(credentials: Record<"email" | "password", string> | undefined): Promise<any> {
-                if (!credentials) {
-                    throw new Error("No credentials provided");
-                }
-                
+            /* eslint-disable  @typescript-eslint/no-explicit-any */
+            async authorize(credentials: any): Promise<any> {
                 await dbConnect();
                 try {
                     const user = await UserModel.findOne({
                         $or: [
-                            { email: credentials.email },
-                            { username: credentials.email }
+                            { email: credentials.identifier },
+                            { username: credentials.identifier }
                         ]
                     }).select("+password");
 
@@ -42,10 +38,14 @@ export const authOptions: NextAuthOptions = {
                     } else {
                         throw new Error("Invalid password");
                     }
-                    // @typescript-eslint/no-explicit-any
-                } catch (error) {
-                    const message = error instanceof Error ? error.message : "Authentication failed";
-                    throw new Error(message);
+
+                    // if (user && await bcrypt.compare(credentials.password, user.password)) {
+                    //     return user;
+                    // }
+                } 
+                /* eslint-disable  @typescript-eslint/no-explicit-any */
+                catch (error: any) {
+                    throw new Error(error);
                 }
             },
 
@@ -76,6 +76,11 @@ export const authOptions: NextAuthOptions = {
     },
     session: {
         strategy: "jwt",
+        // jwt: {
+        //     secret: process.env.JWT_SECRET,
+        //     encryption: true,
+        //     maxAge: 30 * 24 * 60 * 60, // 30 days
+        // },
     },
     secret: process.env.NEXTAUTH_SECRET,
 
